@@ -1,24 +1,27 @@
 #!/usr/bin/python
 
 import sys
-import random
 
 from pypdf import PdfWriter, PdfReader
 
 # read input pdf and instantiate output pdf
 writer = PdfWriter()
-reader = PdfReader(sys.argv[1])
+readerFront = PdfReader(sys.argv[1])
+readerBack = PdfReader(sys.argv[2])
 
 # page = reader.pages[0]
 # print(page.extract_text())
 
 # # construct and shuffle page number list
-pages = list(range(reader.get_num_pages()))
-random.shuffle(pages)
+pagesFront = list(range(readerFront.get_num_pages()))
+pagesBack = list(range(readerBack.get_num_pages()))
 
-# # display new sequence
-print ('Reordering pages according to sequence:')
-print (pages)
+print('Number of front pages')
+print(len(pagesFront))
+print('Number of back pages')
+print(len(pagesBack))
+
+quit()
 
 # # add the new sequence of pages to output pdf
 for page in pages:
