@@ -4,12 +4,17 @@ import sys
 
 from pypdf import PdfWriter, PdfReader
 
+folderName = "files"
+prependPath = folderName + "/"
+frontFilePath = prependPath + sys.argv[1]
+backFilePath = prependPath + sys.argv[2]
+mergedFilePath = prependPath + "merged.pdf"
+
 # read input pdf and instantiate output pdf
 writer = PdfWriter()
-readerFront = PdfReader(sys.argv[1])
-readerBack = PdfReader(sys.argv[2])
-
-counter = 0
+readerFront = PdfReader(frontFilePath)
+readerBack = PdfReader(backFilePath)
+output = open(mergedFilePath, "wb")
 
 # add the new sequence of pages to output pdf
 for frontPageNumber in range(len(readerFront.pages)):
@@ -22,8 +27,7 @@ for frontPageNumber in range(len(readerFront.pages)):
     writer.append(fileobj=readerBack, pages=(backPageNumber,backPageNumber+1))
     # writer.append(readerBack, readerBack.pages[backPageNumber])
 
-    # Write to an output PDF document
-    output = open(sys.argv[1]+'-mixed.pdf', "wb")
+    # Write to output PDF document
     writer.write(output)
 
 # Close file descriptors
